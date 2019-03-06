@@ -7,17 +7,26 @@ import (
 )
 
 /*
+go包
+	首字母大写的字符才能导出
 go-type
 	bool
 		true/false
 	number
 		uint 6/16/32/64
 		int 6/16/32/64
-		byte/rune/uintptr
+		byte //alias for uint8
+		rune //alias for int32
+		complex 32/64
+		uintptr
 	string
 
 	derived
 		pointer/array/struct/channel/function/slice/interface/map
+zero-value 
+	0 for number
+	false for bool
+	"" for string
 var define
 	var var_name var_type = var_value
 	var var_name = var_value
@@ -43,6 +52,8 @@ const-var
 	)
 
 	iota
+	
+	can't use ":="
 operator
 	math-operator
 		+ - * / % ++ --
@@ -57,25 +68,24 @@ operator
 	other
 		& *
 if-cond-statement
-	if cond-expr
-	{
+	if cond-expr{
 		...
 	}
 
-	if cond-expr
-	{
+	if cond-expr{
+		...
+	}else if cond-expr{
+		...
+	}else{
 		...
 	}
-	else if cond-expr
-	{
-	}
-	else
-	{
+	
+	if short-statement; cond-expr{
+		...
 	}
 
 switch-cond-statement
-	switch var1
-	{
+	switch var1{
 		case v1:
 			...
 		case v2:
@@ -85,10 +95,16 @@ switch-cond-statement
 		default:
 			...
 	}
-
+	
+	"break” is added automatically
+	"case" may not be const var
+	"var1" may be anytype
+	
+	switch-with-no-condition
+		same as "switch true"
+	
 	type-switch
-	switch x.(type)
-	{
+	switch x.(type){
 		case type1:
 			...
 		case type2:
@@ -113,7 +129,8 @@ function
 	func function_name( [parameter list] ) [return_types] {
    		函数体
 	}
-
+	name-return-values
+	
 	param
 		value-pass
 			default
@@ -142,6 +159,9 @@ var-domain
 	global-var
 		out function
 	pattern-param
+defer
+	推迟函数的执行
+	stacking-defer
 array
 	declare
 		var variable_name [SIZE] variable_type
@@ -168,14 +188,17 @@ pointer
 	var ptr *type;
 
 	define pointer
+		var ptr*type
 	assign pointer
+		ptr = &var
 	access pointer
+		*ptr
 struct
 	type struct_variable_type struct {
-	   member definition;
-	   member definition;
+	   member definition
+	   member definition
 	   ...
-	   member definition;
+	   member definition
 	}
 
 	var-init
