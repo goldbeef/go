@@ -211,6 +211,8 @@ struct
 	struct pointer
 slice
 	abstract of array
+		flexible view into the element of array
+	slice likes the references of array of underlying array
 	define
 		var var_name []type
 	create
