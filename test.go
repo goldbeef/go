@@ -221,16 +221,20 @@ slice
 		s := [] int{1,2,3}
 		s := array[[startIdx]:[endIdx]]
 
-
+	slice-default
+		zero for low-bound
+		length for high-bound
 	len()
+		the length of slice, you can re-slice to extend or shrink
 	cap()
 
 	nil-slice
-		default
+		zero of slice
 	slice-cut
 		slice_name[low_bound:high_bound]
-
+	slices of slices
 	append
+		the backing array may be allocated
 	copy
 Range
 	like iterator for array/slice/channel/map
