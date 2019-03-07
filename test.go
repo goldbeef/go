@@ -229,7 +229,7 @@ slice
 	cap()
 
 	nil-slice
-		zero of slice
+		zero of slice whith len and cap of 0
 	slice-cut
 		slice_name[low_bound:high_bound]
 	slices of slices
