@@ -247,14 +247,36 @@ Map
 		delete(map_name, key)
 recursive-func
 
+method
+	function with receiver-arg
+	method for struct or no-struct
+	pointer-receiver
+		can change the variable
+		you can use both pointer or no-pointer 
+	no-pointer-receiver
+		you can use both pointer or no-pointer 
+	choose pointer-receiver or no-pointer-receiver?
+		always choose pointer-receiver for modification or value-copy
 interface
+	a set of method signarues
+	interfaces are implemented implicitly
+	interface-value 
+		(value, concrete-type)
+	interface with nil underlying value 
+		nil-receiver
+	nil-interface 
+		with no-type and no-value
+	empty-interface 
+		interface {} //interface with zero method
+		used for unknow type
+		
 	type interface_name interface {
 		method_name1 [return_type]
 		method_name2 [return_type]
 		method_name3 [return_type]
 		...
 		method_namen [return_type]
-     }
+     	}
 
 	type struct_name struct {
 	}
@@ -264,22 +286,49 @@ interface
 	...
 	func (struct_name_variable struct_name) method_namen() [return_type] {
 	}
+type-assertions
+	providing access to underlying value of interface 
+	t, ok := i.(T)
+	
+	if i is not type T, ok is false
+type-switch
+	serveral type-assertion in series
 type-convert
 	type_name(expression)
+stringers
+	builtin-inteface
+	type Stringer interface {
+    		String() string
+	}
 error
-	interface
+	builtin-interface 
 	type error interface {
 		Error() string
 	}
-
+reader 
+	func (T) Read(b []byte) (n int, err error)
+	
 goroutine
+	//lightweight thread managed by go runtime
 	go 函数名( 参数列表 )
 channel
+	pipe for sender/receiver data 
+	by default 
+		the sender/recever is blocked until the other side is ready
 	ch := make(chan int)
-    ch <- v    // 把v发送到通道ch
+    	ch <- v    // 把v发送到通道ch
 	v := <-ch  // 从ch接收数据, 并把值赋给v
+	
+	buffered-channel
+		ch := make(chan int, cap)
+	range-close
+		v, ok := <-ch
+		if ok is false, then ch is closed, sending to a closed ch may cause panic
 
-
+select
+	let a goroutint wait on multiple communication operations
+	default-select
+sync.mutex
 other:
 	IDE
 		LiteIDE
