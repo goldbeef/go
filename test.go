@@ -84,10 +84,8 @@ go 打包和工具链
 		忽略变量，忽略包名(避免编译错误)
 
 
-=======
 go包
 	首字母大写的字符才能导出
->>>>>>> 71aeb557c0dc494fcfaf9db1cfa078f177c1b9de
 go-type
 	bool
 		true/false
