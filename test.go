@@ -7,6 +7,83 @@ import (
 )
 
 /*
+go outline 
+	语法简单
+	编译速度快
+	内置并发机制
+		goroutine
+			配置在一组逻辑处理器,每个逻辑处理器绑定到一个操作系统线程
+		channel 
+			通信，自带同步
+	类型系统简单高效
+			组合设计模式
+			接口隐式实现
+	自带gc
+		编译器去处理
+web
+	http://play.golang.org 
+go 快速浏览
+	包
+		定义编译单元
+		import 
+		包 init 
+	符号导出
+		首字母大写
+	引用类型
+		channel, map, slice 
+	func 
+		匿名函数
+		闭包
+	defer 
+	接口interface 
+		value-receiver: use value or ptr 
+		pointer-receiver: use value or ptr 
+	goroutine 
+	channel
+	
+go 打包和工具链
+	包名惯例
+		目录名字
+		不要求所有的包名称都不同
+	main包
+		main方法
+	导入
+		本地导入
+			标准库:GOROOT
+			第三方:GOPATH 
+		远程导入
+			go get 
+		命名导入
+			多个包具有相同名字，使用命名导入
+			import myfmt "mylib/fmt"
+	函数init
+		导入包的时候触发
+	go工具
+		go build //构建 
+		go clean //清除
+		go run 　//构建＋清除
+		go vet //错误检查
+		go fmt //格式调整
+		go 语言文档
+			go doc 
+				命令行方式
+			godoc -http:=6060
+				web方式
+	go开发者合作
+		包处于代码库的根目录
+		包可以非常小
+		对代码执行go fmt 
+		给代码写文档
+	依赖管理
+		godep
+		vender
+		gopkg.in 
+		go module //1.11
+
+	空白标识符
+		忽略变量，忽略包名(避免编译错误)
+
+
 go-type
 	bool
 		true/false
