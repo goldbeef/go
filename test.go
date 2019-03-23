@@ -7,6 +7,7 @@ import (
 )
 
 /*
+<<<<<<< HEAD
 go outline 
 	语法简单
 	编译速度快
@@ -84,17 +85,28 @@ go 打包和工具链
 		忽略变量，忽略包名(避免编译错误)
 
 
+=======
+go包
+	首字母大写的字符才能导出
+>>>>>>> 71aeb557c0dc494fcfaf9db1cfa078f177c1b9de
 go-type
 	bool
 		true/false
 	number
 		uint 6/16/32/64
 		int 6/16/32/64
-		byte/rune/uintptr
+		byte //alias for uint8
+		rune //alias for int32
+		complex 32/64
+		uintptr
 	string
 
 	derived
 		pointer/array/struct/channel/function/slice/interface/map
+zero-value 
+	0 for number
+	false for bool
+	"" for string
 var define
 	var var_name var_type = var_value
 	var var_name = var_value
@@ -120,6 +132,8 @@ const-var
 	)
 
 	iota
+	
+	can't use ":="
 operator
 	math-operator
 		+ - * / % ++ --
@@ -134,25 +148,24 @@ operator
 	other
 		& *
 if-cond-statement
-	if cond-expr
-	{
+	if cond-expr{
 		...
 	}
 
-	if cond-expr
-	{
+	if cond-expr{
+		...
+	}else if cond-expr{
+		...
+	}else{
 		...
 	}
-	else if cond-expr
-	{
-	}
-	else
-	{
+	
+	if short-statement; cond-expr{
+		...
 	}
 
 switch-cond-statement
-	switch var1
-	{
+	switch var1{
 		case v1:
 			...
 		case v2:
@@ -162,10 +175,16 @@ switch-cond-statement
 		default:
 			...
 	}
-
+	
+	"break” is added automatically
+	"case" may not be const var
+	"var1" may be anytype
+	
+	switch-with-no-condition
+		same as "switch true"
+	
 	type-switch
-	switch x.(type)
-	{
+	switch x.(type){
 		case type1:
 			...
 		case type2:
@@ -190,7 +209,8 @@ function
 	func function_name( [parameter list] ) [return_types] {
    		函数体
 	}
-
+	name-return-values
+	
 	param
 		value-pass
 			default
@@ -219,6 +239,9 @@ var-domain
 	global-var
 		out function
 	pattern-param
+defer
+	推迟函数的执行
+	stacking-defer
 array
 	declare
 		var variable_name [SIZE] variable_type
@@ -245,14 +268,17 @@ pointer
 	var ptr *type;
 
 	define pointer
+		var ptr*type
 	assign pointer
+		ptr = &var
 	access pointer
+		*ptr
 struct
 	type struct_variable_type struct {
-	   member definition;
-	   member definition;
+	   member definition
+	   member definition
 	   ...
-	   member definition;
+	   member definition
 	}
 
 	var-init
@@ -265,6 +291,8 @@ struct
 	struct pointer
 slice
 	abstract of array
+		flexible view into the element of array
+	slice likes the references of array of underlying array
 	define
 		var var_name []type
 	create
@@ -273,16 +301,20 @@ slice
 		s := [] int{1,2,3}
 		s := array[[startIdx]:[endIdx]]
 
-
+	slice-default
+		zero for low-bound
+		length for high-bound
 	len()
+		the length of slice, you can re-slice to extend or shrink
 	cap()
 
 	nil-slice
-		default
+		zero of slice whith len and cap of 0
 	slice-cut
 		slice_name[low_bound:high_bound]
-
+	slices of slices
 	append
+		the backing array may be allocated
 	copy
 Range
 	like iterator for array/slice/channel/map
@@ -295,14 +327,36 @@ Map
 		delete(map_name, key)
 recursive-func
 
+method
+	function with receiver-arg
+	method for struct or no-struct
+	pointer-receiver
+		can change the variable
+		you can use both pointer or no-pointer 
+	no-pointer-receiver
+		you can use both pointer or no-pointer 
+	choose pointer-receiver or no-pointer-receiver?
+		always choose pointer-receiver for modification or value-copy
 interface
+	a set of method signarues
+	interfaces are implemented implicitly
+	interface-value 
+		(value, concrete-type)
+	interface with nil underlying value 
+		nil-receiver
+	nil-interface 
+		with no-type and no-value
+	empty-interface 
+		interface {} //interface with zero method
+		used for unknow type
+		
 	type interface_name interface {
 		method_name1 [return_type]
 		method_name2 [return_type]
 		method_name3 [return_type]
 		...
 		method_namen [return_type]
-     }
+     	}
 
 	type struct_name struct {
 	}
@@ -312,22 +366,49 @@ interface
 	...
 	func (struct_name_variable struct_name) method_namen() [return_type] {
 	}
+type-assertions
+	providing access to underlying value of interface 
+	t, ok := i.(T)
+	
+	if i is not type T, ok is false
+type-switch
+	serveral type-assertion in series
 type-convert
 	type_name(expression)
+stringers
+	builtin-inteface
+	type Stringer interface {
+    		String() string
+	}
 error
-	interface
+	builtin-interface 
 	type error interface {
 		Error() string
 	}
-
+reader 
+	func (T) Read(b []byte) (n int, err error)
+	
 goroutine
+	//lightweight thread managed by go runtime
 	go 函数名( 参数列表 )
 channel
+	pipe for sender/receiver data 
+	by default 
+		the sender/recever is blocked until the other side is ready
 	ch := make(chan int)
-    ch <- v    // 把v发送到通道ch
+    	ch <- v    // 把v发送到通道ch
 	v := <-ch  // 从ch接收数据, 并把值赋给v
+	
+	buffered-channel
+		ch := make(chan int, cap)
+	range-close
+		v, ok := <-ch
+		if ok is false, then ch is closed, sending to a closed ch may cause panic
 
-
+select
+	let a goroutint wait on multiple communication operations
+	default-select
+sync.mutex
 other:
 	IDE
 		LiteIDE
