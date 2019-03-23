@@ -7,7 +7,6 @@ import (
 )
 
 /*
-<<<<<<< HEAD
 go outline 
 	语法简单
 	编译速度快
