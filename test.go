@@ -84,6 +84,69 @@ go 打包和工具链
 		忽略变量，忽略包名(避免编译错误)
 	go包
 		首字母大写的字符才能导出
+go并发
+	调度器负责调度
+		本地运行队列 -> 取出一个goroutine -> 逻辑处理器　-> 操作系统线程/物理处理器
+	同步模型
+		CSP(communicating-sequential-process) :通行顺序进程，是一种消息传递模型
+	并发和并行的区别
+		并行
+			同时进行，多核
+		并发
+			某一个区间端，多个同时进行
+	逻辑处理器的数量
+		runtime/debug 
+			SetMaxThreads
+			但是不要盲目修改逻辑处理器的运行时默认设置
+		runtime.GOMAXPROCS(runtime.NumCPU())
+		多个逻辑处理器，且每个逻辑处理器在单独的物理处理器，才能达到并行
+标准库
+	扩展和增强语言能力
+	标准库有100个包，30个类别
+	标准库的源码: $GOROOT/src/pkg
+	具体的标准库
+		log包
+			多goroutine安全
+		json包
+			json tag
+			网络响应
+				NewDecoder/Decode
+			文本
+				Unmarshal
+					结构体
+					map[string]interface{}
+				Marshal
+					MarshalIndent
+		输入/输出
+			io.Writer
+			io.Reader
+测试和性能
+	单元测试
+		正向测试/负向测试
+		分类：
+			基础测试
+			表组测试
+			mock测试
+		具体操作
+			xxx_test.go 
+			import "testing"
+			func TestXxxx(t *testing.T)
+
+			t.Log/Error/Fatal[f]
+			go test -v 
+	示例
+		godoc -http=localhost:6060
+		xxx_test.go 
+		func ExampleXxx()
+			必须基于已经存在的公开函数
+			//OUTPUT
+		go test -v -run="ExampleXxx"
+	基准测试
+		主要测试性能
+			xxx_test.go 
+			import "testing"
+			func BenchmarkXxx(t *testing.B)
+			go test -v -run="none" -bench="BenchmarkXxx" -benchtime="2s" -benchmem
 go-type
 	bool
 		true/false
